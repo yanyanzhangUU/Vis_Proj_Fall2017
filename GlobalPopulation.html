@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Visualization - Project</title>
+    <link rel="stylesheet" href="public/css/style.css"/>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <!-- <script type="text/javascript" src="bower_components/d3/d3.js"></script> -->
+    <script type="text/javascript" src="bower_components/d3-tip/index.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.9.0/d3-legend.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+    <script src="https://d3js.org/d3-selection-multi.v0.4.js"></script>
+    <script src="http://d3js.org/colorbrewer.v1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+
+<body>
+
+<h1>Global​ ​ population​ ​ from​ ​ 1960​ ​ to​ ​ 2016</h1>
+
+<div class="container">
+
+  <header>
+    <div>Name: ​Yanyan​ Zhang; E-Mail: u1127804@utah.edu; UID: u1127804</div>
+    <div>Name: Lin Yan; E-Mail: lin.yan@utah.edy; UID: u1140293</div>
+  </header>
+
+      
+  <div class="worldmap">
+    
+    <h2>World Map</h2>
+    <div>
+    <span>
+    <label>Info Type:</label>
+    <select id="SelectedAttribute">
+        c<option value="anscombe_I">Anscombe's Quartet I</option>
+        <option selected value="anscombe_II">Anscombe's Quartet II</option>
+        <option value="anscombe_III">Anscombe's Quartet III</option>
+        <option value="anscombe_IV">Anscombe's Quartet IV</option>
+    </select>
+    </span>
+    <div class="legend">
+      <h5>Lengend:</h5>
+      <div  class="legend"></div>
+    </div>
+    </div>
+    <svg class="WM" width="850" height="550">
+
+      <g id="map">
+        <span>
+	  <button>World</button> <button>Nation</button>
+	</span>
+      </g>
+    </svg>
+
+    <div id="year-chart" class="yearchart">
+      <h5>Year Chart:</h5>
+    </div>
+    
+  </div>
+  <div class="panel">
+    <h2>Anlysis Panel</h2>
+    <svg width="200" height="300">
+      <g id="panel"></g>
+    </svg>
+  </div>
+</div>
+<script type="application/javascript" src="public/js/Map.js"></script>
+<script type="application/javascript" src="public/js/Yearchart.js"></script>
+<script type="application/javascript" src="public/js/InfoPanel.js"></script>
+<script type="application/javascript" src="public/js/Zoom.js"></script>
+<script type="application/javascript" src="public/js/script.js">
+
+</script>
+</body>
+</html>
