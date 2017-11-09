@@ -6,3 +6,11 @@
         if (error) throw error;
         worldMap.drawMap(world);
     });
+
+    //yy 11/8
+    let coordi = new ParaCoordinates();
+
+    d3.csv("data/usa_tst0.csv", function (error, cntrydata) {
+        coordi.drawCoord(cntrydata);
+    });
+
