@@ -286,3 +286,28 @@ path {
     text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
 
+
+.axis.active line,
+.axis.active path {
+    fill: none;
+    stroke: #222;
+    stroke-width: 1px;
+}
+
+.axis:hover .title {
+    font-weight: bold;
+}
+
+.axis:hover .tick text {
+    opacity: 1;
+}
+
+.axis.active .title {
+    font-weight: bold;
+}
+
+.axis.active .tick text {
+    opacity: 1;
+    font-weight: bold;
+}
+

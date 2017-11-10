@@ -84,13 +84,17 @@ class ParaCoordinates {
 
         // Add and store a brush for each axis.  d3.svg.brush().y(y[d])
         let brushWidth = 30;
+
+        let selectedAxis = [];
+        let selectedInterval = [];
+
         g.append("g")
             .attr("class", "brush")
             .each(function(d) {
                 // console.log("check ", y[d].range());
                 d3.select(this)
                     .call(y[d].brush = d3.brushY()
-                        .extent([[-brushWidth/2, y[d].range()[1]], [brushWidth/2, y[d].range()[0]]]).on("brush", brush)); })
+                        .extent([[-brushWidth/2, y[d].range()[1]], [brushWidth/2, y[d].range()[0]]]).on("end", brush)); })  //on('brush'
             .selectAll("rect")
             .attr("x", -8)
             .attr("width", 16);
@@ -103,16 +107,114 @@ class ParaCoordinates {
 
         // Handles a brush event, toggling the display of foreground lines.
         function brush() {
-            let actives = dimensions.filter(function(p) {
-                // return !y[p].brush.empty();
-                return !d3.event.selection;
-            }),
-                extents = actives.map(function(p) { return y[p].brush.extent(); });
+
+            // // one way
+            // let actives = [];
+            // console.log("select ", that.svg);
+            // console.log('svg axis ', that.svg.selectAll(".axis"));   //(".axis .brush"));
+            // that.svg.selectAll(".axis")
+            //     .filter(d => console.log(d3.brushSelection(this)))
+            //     // (function(d) {
+            //     //     console.log("d?1? ", d);
+            //     //     console.log("selected??? ", d3.brushSelection(this));
+            //     //     return d3.brushSelection(this);
+            //     // })
+            //     .each(function(d) {
+            //         console.log("d2?? ", d);
+            //         actives.push({
+            //             dimension: d,
+            //             extent: d3.brushSelection(this)
+            //         });
+            //     });
+            // // console.log("qc actives ", actives);
+            //
+            // let selected = cntrydata.filter(function(d) {
+            //     if (actives.every(function(active) {
+            //             let dim = active.dimension;
+            //             // test if point is within extents for each active brush
+            //             console.log("active?? ", active);
+            //             return dim.type.within(d[dim.key], active.extent, dim);
+            //         })) {
+            //         return true;
+            //     }
+            // });
+            //
+            // that.svg.selectAll(".axis")
+            //     .filter(function(d) {
+            //         return (actives.indexOf(d) > -1); // ? true : false;
+            //     })
+            //     .classed("active", true)
+            //     .each(function(dimension, i) {
+            //         let extent = extents[i];
+            //         d3.select(this)
+            //             .selectAll(".tick text")
+            //             .style("display", function(d) {
+            //                 let value = dimension.type.coerce(d);
+            //                 return dimension.type.within(value, extent, dimension) ? null : "none";
+            //             });
+            //     });
+
+            let actives = [];
+            that.svg.selectAll(".brush")
+                .filter(function(d) {
+                    // console.log("d?1? ", d);
+                    // console.log("selected??? ", d3.brushSelection(this));
+                    return d3.brushSelection(this);
+                })
+                .each(function(d) {
+                    // console.log("d2?? ", d);
+                    actives.push({
+                        dimension: d,
+                        extent: d3.brushSelection(this)
+                    })}); // (d => console.log(d3.brushSelection(this)))
+            console.log("actives ", actives);
+
+            // the other version -- simple , from v3
+
+            //test
+            // let s1 = d3.event.selection;
+            // let interval = s1.map(y['Age dependency ratio, old'].invert);
+            // console.log("select ", d3.brushSelection(this));
+            // console.log("dim ", dimensions);
+
+            // let actives = dimensions.filter(function(p) {
+            //     // return !y[p].brush.empty();
+            //     return d3.event.selection;
+            //     // return d3.brushSelection(this);
+            // // }),
+            //     extents = actives.map(function(p) {
+            //         console.log("extent  ", p, y[p].brush.extent());
+            //         return y[p].brush.extent();
+            //     });
+            // console.log("actives?? ", actives);
+
+            // actives = ['Age dependency ratio, old'];
+            // console.log("foreground ", foreground);
             foreground.style("display", function(d) {
-                return actives.every(function(p, i) {
-                    return extents[i][0] <= d[p] && d[p] <= extents[i][1];
+                // console.log("data ", d);
+                return actives.every(function(p, i) {   //actives.every(function
+                    // console.log("qc extents ", extents, extents[i][0], d[p]);
+                    // console.log("d, p, i ", d, p, i);
+
+                    // console.log('highlight -- ', interval[0], d[p], value, interval[1]);
+                    // console.log('yes or no ', interval[0] <= d[p] && d[p] <= interval[1]);
+                    // console.log("tpe ", typeof d[p], typeof value, typeof interval[0]);
+                    // console.log('yes or no ', interval[1] <= value && value <= interval[0]);
+                    // return extents[i][0] <= d[p] && d[p] <= extents[i][1];
+
+                    // console.log("p i ", p, i, p.dimension, p.extent);
+                    // console.log("p i ", p, i, p['dimension'], p['extent']); // the same
+
+                    let axis_name = p.dimension;
+                    let pic_interval = p.extent;
+                    let value = parseFloat(d[axis_name]);
+                    let interval = pic_interval.map(y[axis_name].invert);
+                    // console.log(interval, value);
+                    return interval[1] <= value && value <= interval[0];
                 }) ? null : "none";
             });
+
+
         }
 
         // to do:
