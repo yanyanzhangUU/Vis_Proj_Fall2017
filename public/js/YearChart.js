@@ -1,7 +1,15 @@
 
 class YearChart {
 
-    constructor () {
+    constructor (worldMap, Population_total, Birth_rate, Death_rate, Life_expectancy) {
+	this.worldMap = worldMap;
+	this.Population_total =Population_total;
+	this.Birth_rate =Birth_rate;
+	this.Death_rate=Death_rate;
+	this.Life_expectancy=Life_expectancy;
+	this.type = null;
+	this.alldata = null;
+	this.selected_year =null;
         this.margin = {top: 10, right: 20, bottom: 30, left: 50};
         let divyearChart = d3.select("#year-chart");
         this.svgBounds = divyearChart.node().getBoundingClientRect();
@@ -77,6 +85,36 @@ class YearChart {
 	    };
 
 	});
+
+	let attribute = [];
+	document.getElementById("SelectedAttribute").onchange = function(){
+	attribute = document.getElementById('SelectedAttribute').value;
+	switch(attribute){
+	case 'anscombe_I':
+	    yearChart.type ="PT";
+	    yearChart.alldata=yearChart.Population_total;
+	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+	    break;
+	case 'anscombe_II':
+	    yearChart.type="BR";
+	    yearChart.alldata=yearChart.Birth_rate;
+	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+	    break;
+	case 'anscombe_III':
+	    yearChart.type="DR";
+	    yearChart.alldata=yearChart.Death_rate;
+	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+	    break;
+	case 'anscombe_IV':
+	    yearChart.type="LE";
+	    yearChart.alldata=yearChart.Life_expectancy;
+	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+	    break;
+	default:
+	    break;
+	}
+    };
+	
 	ychv.on("mouseout", function(d){
 	    d3.select(this).classed("highlighted", false);
 	    let hy =yearChart.svg.selectAll(".Hoveryear");
@@ -87,8 +125,8 @@ class YearChart {
 	ychv.on("click", function(d){
 	    ychv.classed("selected", false);
 	    d3.select(this).classed("selected", true);
-	    let sy=this["__data__"];
-	    console.log(sy)
+	    yearChart.selected_year=this["__data__"];
+	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
 	});
 
     }

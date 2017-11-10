@@ -13,47 +13,158 @@ class Map {
      * @param wordcupData the data for one specific world cup
      */
     updateMap(info, type, year) {
-	let selected_year = 2006;
-	console.log(year)
-	let domain = [];
-	let range =[];
-	switch(type){
-	case 'PT':
-	    domain = [0, 5000000, 10000000, 20000000, 40000000, 100000000, 1000000000];
-            range = ["#D2D8DE", "#fcbba1", "#fc9272", "#fb6a4a", "#de2d26", "#a50f15", "#860308"];
-	    break;
-	case 'BR':
-	    domain = [0, 10, 20, 30, 40, 50];
-	    
-            range = ["#c6dbef", "#9ecae1","#6baed6", "#3182bd", "#08519c", "#063e78"];
-	    break;
-	case 'DR':
-	    domain = [0, 5, 10, 15, 20, 25, 30];
-            range = ["#f7f7f7", "#d9d9d9", "#bdbdbd", "#969696", "#636363", "#252525"];
-	    break;
-	case 'LE':
-	    domain = [20, 30, 40, 50, 60, 70, 80];
-            range = ["#edf8fb", "#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#005824"];
-	    break;
-	default:
-	    break;
+	if(info==null){
+	    d3.select("#map").selectAll(".alertinfo").remove();
+	    let map = d3.select("#map");
+	    let c=map.selectAll(".countries");
+	    map.append("text")
+		.text("Please select one info type from selection bar!")
+		.attr("dx", 400)
+		.attr("dy", 250)
+		.attr("class", "alertinfo");
 	}
-	this.colorScale = d3.scaleThreshold()
-	    .domain(domain)
-	    .range(range);
-	
-	let worldmap=this;
-	let map = d3.select("#map");
-	let c=map.selectAll(".countries");
-	let countries = map.selectAll(".countries")
-		.each(function(d){
-		    let country = d3.select(this)._groups[0];
-		    for(var i=0; i<info.length; i++)
-			if(country[0].getAttribute("class") == ("countries "+info[i]["Country Code"])){
-			    d3.select(this)
-				.style("fill",(worldmap.colorScale(parseInt(info[i][selected_year+" [YR"+selected_year+"]"]))));}
+	else if(year==null){
+	    d3.select("#map").selectAll(".alertinfo").remove();
+	    let map = d3.select("#map");
+	    let c=map.selectAll(".countries");
+	    map.append("text")
+		.text("Please select a year from the year chart below!")
+		.attr("dx", 400)
+		.attr("dy", 250)
+		.attr("class", "alertinfo");
+	    
+	    
+	}
+	else{
+	    d3.select("#map").selectAll(".alertinfo").remove();
+	    d3.select("#map").selectAll(".alertrec").remove();
+	    d3.select("#map").selectAll(".mapinfo").remove();
+	    let selected_year = year;
+	    let domain = [];
+	    let range =[];
+	    let lginfo=[];
+	    let mapinfo=[];
+	    switch(type){
+	    case 'PT':
+		domain = [0, 5000000, 10000000, 20000000, 40000000, 100000000, 1000000000];
+		range = ["#D2D8DE", "#fcbba1", "#fc9272", "#fb6a4a", "#de2d26", "#a50f15", "#860308"];
+		lginfo = "(in millions)";
+		mapinfo = "Total Population";
+		break;
+	    case 'BR':
+		domain = [0, 10, 20, 30, 40, 50];
+		range = ["#c6dbef", "#9ecae1","#6baed6", "#3182bd", "#08519c", "#063e78"];
+		lginfo = "(per 1000 people)";
+		mapinfo="Birth Rate";
+		break;
+	    case 'DR':
+		domain = [0, 5, 10, 15, 20, 25];
+		range = ["#d9d9d9","#dadaeb","#bcbddc","#9e9ac8", "#756bb1", "#54278f"];
+		lginfo = "(per 1000 people)";
+		mapinfo="Death Rate";
+		break;
+	    case 'LE':
+		domain = [20, 30, 40, 50, 60, 70, 80];
+		range = ["#edf8fb", "#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#005824"];
+		lginfo = "(years)";
+		mapinfo="Life Expectancy";
+		break;
+	    default:
+		break;
+	    }
+	    this.colorScale = d3.scaleThreshold()
+		.domain(domain)
+		.range(range);
+	    
+	    let legend=[];
+	    for(let i=0;i<domain.length-1;i++){
+		if(type=="PT")
+		    legend.push([[domain[i]/1000000+" - "+(domain[i+1]/1000000-0.1), range[i]]]);
+		else
+		    legend.push([[domain[i]+" - "+(domain[i+1]-0.1), range[i]]]);
+	    }
+	    if(type=="PT")
+		legend.push([[domain[domain.length-1]/1000000+" +",range[domain.length-1]]]);
+	    else
+		legend.push([[domain[domain.length-1]+" +",range[domain.length-1]]]);
+	    legend[0][0][0] = "Missing data";
+	    legend[0][0][1] = "#d9d9d9";
+	    
+	    let worldmap=this;
+	    let map = d3.select("#map");
+	    let c=map.selectAll("rect")
+		    .data(legend);
+	    let countries = map.selectAll(".countries")
+		    .each(function(d){
+			let country = d3.select(this)._groups[0];
+			for(var i=0; i<info.length; i++)
+			    if(country[0].getAttribute("class") == ("countries "+info[i]["Country Code"])){
+				d3.select(this)
+				    .style("fill",(worldmap.colorScale(parseInt(info[i][selected_year+" [YR"+selected_year+"]"]))));}
 			   
-		});
+		    });
+	    map.append("text")
+		.text(function(d){return selected_year+" World Map";})
+		.attr("dx", 530)
+		.attr("dy", 480)
+		.style("font-size", "42px")
+	    	.style("fill", function(d){
+		    return range[5];})
+	        .style("stroke-width", "1px")
+		.style("opacity", ".3")
+		.attr("class", "mapinfo");
+	    
+	    map.append("text")
+		.text(function(d){return mapinfo;})
+		.attr("dx", 550)
+		.attr("dy", 500)
+		.style("font-size", "38px")
+	    	.style("fill", function(d){
+		    return range[5];})
+	        .style("stroke-width", "10px")
+		.style("opacity", ".8")
+		.attr("class", "mapinfo");
+
+	    map.append("text")
+		.text("Legend")
+		.attr("dx", 10)
+		.attr("dy", 20)
+		.style("font-size", "30px")
+		.style("fill", function(d){
+		    return range[5];})
+		.style("stroke-width","1px")
+		.attr("class", "mapinfo");
+	    
+	    map.append("text")
+		.text(lginfo)
+		.attr("dx", 10)
+		.attr("dy", 45)
+		.attr("class", "mapinfo");
+
+	    c.enter().append("rect")
+		.attr("x", 10)
+		.attr("y", function(d, i){
+		    return 60+30*i;})
+		.attr("height", 20)
+		.attr("width",20)
+		.style("fill", function(d){return d[0][1];})
+		.attr("class", "mapinfo");
+	    
+	    c.enter().append("text")
+		.text(function(d){return d[0][0];})
+		.attr("dx", function(d,i){
+		    if(i==0)
+			return 40;
+		    return 40;
+		})
+		.attr("dy", function(d, i){
+		    return 75+30*i;})
+		.style("font-size", "16px")
+		.attr("class", "mapinfo");
+
+	    
+	    
+	}
 	
     }
 
@@ -97,12 +208,20 @@ class Map {
 		.attr("d", path)
 		.attr("class", "path");
 	    
-	    let graticule = d3.geoGraticule();
-             d3.select("#map").append('path',"#graticule")
-		.datum(graticule)
-		.attr('class', "grat")
-		.attr('d', path)
-		.attr('fill', 'none');
+
+	    map.append("rect")
+		.attr("x", 150)
+		.attr("height",70)
+		.attr("y", 210)
+		.attr("width", 500)
+		.attr("class", "alertrec");
+
+	    map.append("text")
+		.text("Please select a pair of info type and year!")
+		.attr("dx", 400)
+		.attr("dy", 250)
+		.attr("class", "alertinfo");
+	    
 	});
     }
 

@@ -223,6 +223,23 @@ header {
 
 }
 
+.alertrec  {
+
+    stroke: #08519c;
+    stroke-width: 1px;
+    opacity: .7;
+    fill: white
+
+}
+
+.alertinfo {
+    text-anchor:middle;
+    font-size: 24px;
+    fill: #565656;
+    stroke-width: 0.1px;
+
+}
+
 
 .grat {
     stroke: grey;
