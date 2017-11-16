@@ -86,13 +86,13 @@ class YearChart {
 
 	});
 	let attribute = [];
-	/* let label_PT =[];
+	 let label_PT =[];
 	let label_BR= [];
 	let label_DR= [];
 	let label_LE= [];
-	 */
+	 
 	document.getElementById("SelectedAttribute").onchange = function(){
-	    /*   let info_PT = [];
+	       let info_PT = [];
 	    let info_BR =[];
 	    let info_DR =[];
 	    let info_LE =[];
@@ -136,9 +136,9 @@ class YearChart {
 		    info_LE[i].push(parseInt(yearChart.Life_expectancy[i][(j+1960)+" [YR"+(j+1960)+"]"]));
 		}
 	    }
-
-	    let csv1='';
-	    info_BR.forEach(function(row){
+	    
+	    let csv0='';
+	    label_PT.forEach(function(row){
 		csv1 += row.join(',');
 		csv1 += "\n";
 		
@@ -146,11 +146,23 @@ class YearChart {
 	    var hiddenElement1 = document.createElement('a');
 	    hiddenElement1.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv1);
 	    hiddenElement1.target = '_blank';
-	    hiddenElement1.download = 'info_BR.csv';
+	    hiddenElement1.download = 'label_PT.csv';
+	    hiddenElement1.click();
+	    
+	    let csv1='';
+	    label_BR.forEach(function(row){
+		csv1 += row.join(',');
+		csv1 += "\n";
+		
+	    });
+	    var hiddenElement1 = document.createElement('a');
+	    hiddenElement1.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv1);
+	    hiddenElement1.target = '_blank';
+	    hiddenElement1.download = 'label_BR.csv';
 	    hiddenElement1.click();
 
 	    let csv2='';
-	    info_DR.forEach(function(row){
+	    label_DR.forEach(function(row){
 		csv2 += row.join(',');
 		csv2 += "\n";
 		
@@ -158,11 +170,11 @@ class YearChart {
 	    var hiddenElement2 = document.createElement('a');
 	    hiddenElement2.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv2);
 	    hiddenElement2.target = '_blank';
-	    hiddenElement2.download = 'info_DR.csv';
+	    hiddenElement2.download = 'label_DR.csv';
 	    hiddenElement2.click();
 	    
 	    let csv3='';
-	    info_LE.forEach(function(row){
+	    label_LE.forEach(function(row){
 		csv3 += row.join(',');
 		csv3 += "\n";
 		
@@ -170,10 +182,10 @@ class YearChart {
 	    var hiddenElement3 = document.createElement('a');
 	    hiddenElement3.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv3);
 	    hiddenElement3.target = '_blank';
-	    hiddenElement3.download = 'info_LE.csv';
+	    hiddenElement3.download = 'label_LE.csv';
 	    hiddenElement3.click();
 
-	    */
+	    
 	    attribute = document.getElementById('SelectedAttribute').value;
 	    switch(attribute){
 	    case 'anscombe_I':
