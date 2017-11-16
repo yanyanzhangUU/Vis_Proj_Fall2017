@@ -139,10 +139,11 @@ class YearChart {
 	    
 	    let csv0='';
 	    label_PT.forEach(function(row){
-		csv1 += row.join(',');
-		csv1 += "\n";
+		csv0 += row;
+		csv0 += "\n";
 		
 	    });
+
 	    var hiddenElement0 = document.createElement('a');
 	    hiddenElement0.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv0);
 	    hiddenElement0.target = '_blank';
@@ -151,7 +152,7 @@ class YearChart {
 	    
 	    let csv1='';
 	    label_BR.forEach(function(row){
-		csv1 += row.join(',');
+		csv1 += row;
 		csv1 += "\n";
 		
 	    });
@@ -163,7 +164,7 @@ class YearChart {
 
 	    let csv2='';
 	    label_DR.forEach(function(row){
-		csv2 += row.join(',');
+		csv2 += row;
 		csv2 += "\n";
 		
 	    });
@@ -175,7 +176,7 @@ class YearChart {
 	    
 	    let csv3='';
 	    label_LE.forEach(function(row){
-		csv3 += row.join(',');
+		csv3 += row;
 		csv3 += "\n";
 		
 	    });
@@ -184,7 +185,7 @@ class YearChart {
 	    hiddenElement3.target = '_blank';
 	    hiddenElement3.download = 'label_LE.csv';
 	    hiddenElement3.click();
-
+	    console.log(csv3)
 	    
 	    attribute = document.getElementById('SelectedAttribute').value;
 	    switch(attribute){
