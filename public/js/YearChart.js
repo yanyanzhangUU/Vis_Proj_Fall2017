@@ -137,41 +137,41 @@ class YearChart {
 		}
 	    }
 
-	    let csv='';
+	    let csv1='';
 	    info_BR.forEach(function(row){
-		csv += row.join(',');
-		csv += "\n";
+		csv1 += row.join(',');
+		csv1 += "\n";
 		
 	    });
-	    var hiddenElement = document.createElement('a');
-	    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-	    hiddenElement.target = '_blank';
-	    hiddenElement.download = 'info_BR.csv';
-	    hiddenElement.click();
+	    var hiddenElement1 = document.createElement('a');
+	    hiddenElement1.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv1);
+	    hiddenElement1.target = '_blank';
+	    hiddenElement1.download = 'info_BR.csv';
+	    hiddenElement1.click();
 
-	    csv='';
+	    let csv2='';
 	    info_DR.forEach(function(row){
-		csv += row.join(',');
-		csv += "\n";
+		csv2 += row.join(',');
+		csv2 += "\n";
 		
 	    });
-	    var hiddenElement = document.createElement('a');
-	    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-	    hiddenElement.target = '_blank';
-	    hiddenElement.download = 'info_DR.csv';
-	    hiddenElement.click();
+	    var hiddenElement2 = document.createElement('a');
+	    hiddenElement2.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv2);
+	    hiddenElement2.target = '_blank';
+	    hiddenElement2.download = 'info_DR.csv';
+	    hiddenElement2.click();
 	    
-	    csv='';
+	    let csv3='';
 	    info_LE.forEach(function(row){
-		csv += row.join(',');
-		csv += "\n";
+		csv3 += row.join(',');
+		csv3 += "\n";
 		
 	    });
-	    var hiddenElement = document.createElement('a');
-	    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-	    hiddenElement.target = '_blank';
-	    hiddenElement.download = 'info_LE.csv';
-	    hiddenElement.click();
+	    var hiddenElement3 = document.createElement('a');
+	    hiddenElement3.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv3);
+	    hiddenElement3.target = '_blank';
+	    hiddenElement3.download = 'info_LE.csv';
+	    hiddenElement3.click();
 
 	    
 
