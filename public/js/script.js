@@ -36,7 +36,6 @@ d3.csv("data/global-population-estimates.csv", function(error, global_data){
 	
 });
 
-
 let yearchart = new YearChart(worldMap, Population_total, Birth_rate, Death_rate, Life_expectancy);
 let year = yearchart.update();
 

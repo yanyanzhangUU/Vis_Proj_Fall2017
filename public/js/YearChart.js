@@ -174,7 +174,7 @@ class YearChart {
 	    hiddenElement3.click();
 
 	    */
-
+	    attribute = document.getElementById('SelectedAttribute').value;
 	    switch(attribute){
 	    case 'anscombe_I':
 		yearChart.type ="PT";
