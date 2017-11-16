@@ -138,7 +138,7 @@ class YearChart {
 	    }
 
 	    let csv='';
-	    info_PT.forEach(function(row){
+	    info_BR.forEach(function(row){
 		csv += row.join(',');
 		csv += "\n";
 		
@@ -146,9 +146,35 @@ class YearChart {
 	    var hiddenElement = document.createElement('a');
 	    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
 	    hiddenElement.target = '_blank';
-	    hiddenElement.download = 'people.csv';
+	    hiddenElement.download = 'info_BR.csv';
+	    hiddenElement.click();
+
+	    csv='';
+	    info_DR.forEach(function(row){
+		csv += row.join(',');
+		csv += "\n";
+		
+	    });
+	    var hiddenElement = document.createElement('a');
+	    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+	    hiddenElement.target = '_blank';
+	    hiddenElement.download = 'info_DR.csv';
 	    hiddenElement.click();
 	    
+	    csv='';
+	    info_LE.forEach(function(row){
+		csv += row.join(',');
+		csv += "\n";
+		
+	    });
+	    var hiddenElement = document.createElement('a');
+	    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+	    hiddenElement.target = '_blank';
+	    hiddenElement.download = 'info_LE.csv';
+	    hiddenElement.click();
+
+	    
+
 	    switch(attribute){
 	    case 'anscombe_I':
 		yearChart.type ="PT";
