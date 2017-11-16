@@ -143,11 +143,11 @@ class YearChart {
 		csv1 += "\n";
 		
 	    });
-	    var hiddenElement1 = document.createElement('a');
-	    hiddenElement1.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv1);
-	    hiddenElement1.target = '_blank';
-	    hiddenElement1.download = 'label_PT.csv';
-	    hiddenElement1.click();
+	    var hiddenElement0 = document.createElement('a');
+	    hiddenElement0.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv0);
+	    hiddenElement0.target = '_blank';
+	    hiddenElement0.download = 'label_PT.csv';
+	    hiddenElement0.click();
 	    
 	    let csv1='';
 	    label_BR.forEach(function(row){
