@@ -22,6 +22,7 @@ let Death_rate=[];
 let Life_expectancy=[];
 d3.csv("data/global-population-estimates.csv", function(error, global_data){
     //console.log(global_data)
+    
     for(let i =0; i< global_data.length; i++){
 	if (global_data[i]["Series Name"]=="Population, total")
 	    Population_total.push(global_data[i]);
@@ -34,6 +35,7 @@ d3.csv("data/global-population-estimates.csv", function(error, global_data){
     }
 	
 });
+
 
 let yearchart = new YearChart(worldMap, Population_total, Birth_rate, Death_rate, Life_expectancy);
 let year = yearchart.update();

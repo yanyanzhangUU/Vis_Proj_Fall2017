@@ -163,7 +163,6 @@ class Map {
 		.attr("class", "mapinfo");
 
 	    
-	    
 	}
 	
     }

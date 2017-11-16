@@ -85,35 +85,96 @@ class YearChart {
 	    };
 
 	});
-
 	let attribute = [];
+	let label_PT =[];
+	let label_BR= [];
+	let label_DR= [];
+	let label_LE= [];
+
 	document.getElementById("SelectedAttribute").onchange = function(){
-	attribute = document.getElementById('SelectedAttribute').value;
-	switch(attribute){
-	case 'anscombe_I':
-	    yearChart.type ="PT";
-	    yearChart.alldata=yearChart.Population_total;
-	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
-	    break;
-	case 'anscombe_II':
-	    yearChart.type="BR";
-	    yearChart.alldata=yearChart.Birth_rate;
-	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
-	    break;
-	case 'anscombe_III':
-	    yearChart.type="DR";
-	    yearChart.alldata=yearChart.Death_rate;
-	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
-	    break;
-	case 'anscombe_IV':
-	    yearChart.type="LE";
-	    yearChart.alldata=yearChart.Life_expectancy;
-	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
-	    break;
-	default:
-	    break;
-	}
-    };
+	    let info_PT = [];
+	    let info_BR =[];
+	    let info_DR =[];
+	    let info_LE =[];
+	    
+	    for(let i=0; i<yearChart.Population_total.length; i++){
+		info_PT.push([]);
+	    }
+	    for(let i=0; i<yearChart.Population_total.length; i++){
+		label_PT.push(yearChart.Population_total[i]["Country Name"]);
+		for(let j=0; j<(2016-1960+1); j++){
+		    info_PT[i].push(parseInt(yearChart.Population_total[i][(j+1960)+" [YR"+(j+1960)+"]"]));
+		}
+	    }
+
+	    for(let i=0; i<yearChart.Death_rate.length; i++){
+		info_DR.push([]);
+	    }
+	    for(let i=0; i<yearChart.Death_rate.length; i++){
+		label_DR.push(yearChart.Death_rate[i]["Country Name"]);
+		for(let j=0; j<(2016-1960+1); j++){
+		    info_DR[i].push(parseInt(yearChart.Death_rate[i][(j+1960)+" [YR"+(j+1960)+"]"]));
+		}
+	    }
+
+	    for(let i=0; i<yearChart.Birth_rate.length; i++){
+		info_BR.push([]);
+	    }
+	    for(let i=0; i<yearChart.Birth_rate.length; i++){
+		label_BR.push(yearChart.Birth_rate[i]["Country Name"]);
+		for(let j=0; j<(2016-1960+1); j++){
+		    info_BR[i].push(parseInt(yearChart.Birth_rate[i][(j+1960)+" [YR"+(j+1960)+"]"]));
+		}
+	    }
+
+	    for(let i=0; i<yearChart.Life_expectancy.length; i++){
+		info_LE.push([]);
+	    }
+	    for(let i=0; i<yearChart.Life_expectancy.length; i++){
+		label_LE.push(yearChart.Life_expectancy[i]["Country Name"]);
+		for(let j=0; j<(2016-1960+1); j++){
+		    info_LE[i].push(parseInt(yearChart.Life_expectancy[i][(j+1960)+" [YR"+(j+1960)+"]"]));
+		}
+	    }
+
+	    let csv='';
+	    info_PT.forEach(function(row){
+		csv += row.join(',');
+		csv += "\n";
+		
+	    });
+	    var hiddenElement = document.createElement('a');
+	    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+	    hiddenElement.target = '_blank';
+	    hiddenElement.download = 'people.csv';
+	    hiddenElement.click();
+	    
+	    switch(attribute){
+	    case 'anscombe_I':
+		yearChart.type ="PT";
+		yearChart.alldata=yearChart.Population_total;
+		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+		break;
+	    case 'anscombe_II':
+		yearChart.type="BR";
+		yearChart.alldata=yearChart.Birth_rate;
+		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+		break;
+	    case 'anscombe_III':
+		yearChart.type="DR";
+		yearChart.alldata=yearChart.Death_rate;
+		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+		break;
+	    case 'anscombe_IV':
+		yearChart.type="LE";
+		yearChart.alldata=yearChart.Life_expectancy;
+		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+		break;
+	    default:
+		break;
+	    }
+	};
+
 	
 	ychv.on("mouseout", function(d){
 	    d3.select(this).classed("highlighted", false);
