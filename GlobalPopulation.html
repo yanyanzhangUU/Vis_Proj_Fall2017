@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <title>Visualization - Project</title>
     <link rel="stylesheet" href="public/css/style.css"/>
+    <style>
+      #cluster { position: relative; width: 100%; height: 100%; background: white; display: block;}
+      div.tooltip { position: absolute; width: 380px; display: block;  padding: 20px; background: #000; border: 0px; border-radius: 3px; pointer-events: none; z-index: 999; color: #FAFAFA;}
+    </style>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <!-- <script type="text/javascript" src="bower_components/d3/d3.js"></script> -->
@@ -59,13 +63,16 @@
     </div>
 
   </div>
+  
   <div class="panel">
     <h2>Anlysis Panel</h2>
+    <li style="font-size:22px; color:#d20a11; margin-top:1.5em">Cluster</li>
     <div id="cluster"></div>
-    <svg width="200" height="300">
+    <svg >
       <g id="panel"></g>
     </svg>
   </div>
+
 
 
 
