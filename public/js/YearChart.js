@@ -86,13 +86,13 @@ class YearChart {
 
 	});
 	let attribute = [];
-	 let label_PT =[];
+	/* let label_PT =[];
 	let label_BR= [];
 	let label_DR= [];
 	let label_LE= [];
-	 
+	 */
 	document.getElementById("SelectedAttribute").onchange = function(){
-	       let info_PT = [];
+	    /*    let info_PT = [];
 	    let info_BR =[];
 	    let info_DR =[];
 	    let info_LE =[];
@@ -186,7 +186,7 @@ class YearChart {
 	    hiddenElement3.download = 'label_LE.csv';
 	    hiddenElement3.click();
 	    console.log(csv3)
-	    
+	    */
 	    attribute = document.getElementById('SelectedAttribute').value;
 	    switch(attribute){
 	    case 'anscombe_I':

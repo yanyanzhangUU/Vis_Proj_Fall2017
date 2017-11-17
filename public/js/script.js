@@ -1,4 +1,6 @@
-    let worldMap = new Map();
+let worldMap = new Map();
+let cluster= new Cluster();
+cluster.updateCluster();
 
     /* DATA LOADING */
     //Load in json data to make map
