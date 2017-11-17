@@ -6,7 +6,14 @@ class Cluster{
 	//this.height = document.getElementById("cluster").offsetHeight-20;
     }
 
+    cleanCluster(){
+	d3.select('#cluster').selectAll(".divs").remove();
+	d3.select('#cluster').selectAll("svg").remove();
+    }
+
     updateCluster(type, year){
+	this.cleanCluster();
+	
 	var color = d3.scaleOrdinal()
 		.domain(["0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"])
 		.range(["#FF0000","#FF1400","#FF2800","#FF3c00","#FF5000","#FF6400","#FF7800","#FF8c00","#FFa000","#FFb400","#FFc800","#FFdc00","#FFf000","#fdff00","#b0ff00","#65ff00","#17ff00","#00ff36","#00ff83","#00ffd0","#00e4ff","#00c4ff","#00a4ff","#00a4ff","#0084ff","#0064ff","#0044ff","#0022ff","#0002ff","#0100ff","#0300ff","#0500ff"]);

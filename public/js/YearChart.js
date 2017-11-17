@@ -1,8 +1,9 @@
 
 class YearChart {
 
-    constructor (worldMap, Population_total, Birth_rate, Death_rate, Life_expectancy) {
+    constructor (worldMap, Population_total, Birth_rate, Death_rate, Life_expectancy, cluster) {
 	this.worldMap = worldMap;
+	this.cluster = cluster;
 	this.Population_total =Population_total;
 	this.Birth_rate =Birth_rate;
 	this.Death_rate=Death_rate;
@@ -192,22 +193,22 @@ class YearChart {
 	    case 'anscombe_I':
 		yearChart.type ="PT";
 		yearChart.alldata=yearChart.Population_total;
-		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
 		break;
 	    case 'anscombe_II':
 		yearChart.type="BR";
 		yearChart.alldata=yearChart.Birth_rate;
-		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
 		break;
 	    case 'anscombe_III':
 		yearChart.type="DR";
 		yearChart.alldata=yearChart.Death_rate;
-		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
 		break;
 	    case 'anscombe_IV':
 		yearChart.type="LE";
 		yearChart.alldata=yearChart.Life_expectancy;
-		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
 		break;
 	    default:
 		break;
@@ -226,7 +227,7 @@ class YearChart {
 	    ychv.classed("selected", false);
 	    d3.select(this).classed("selected", true);
 	    yearChart.selected_year=this["__data__"];
-	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year);
+	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
 	});
 
     }
