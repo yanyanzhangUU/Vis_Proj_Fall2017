@@ -12,7 +12,7 @@ class Map {
      * Update Map with info for a specific FIFA World Cup
      * @param wordcupData the data for one specific world cup
      */
-    updateMap(info, type, year) {
+    updateMap(info, type, year, cluster) {
 	if(info==null){
 	    d3.select("#map").selectAll(".alertinfo").remove();
 	    let map = d3.select("#map");
@@ -36,6 +36,7 @@ class Map {
 	    
 	}
 	else{
+	    cluster.updateCluster(type, year);
 	    d3.select("#map").selectAll(".alertinfo").remove();
 	    d3.select("#map").selectAll(".alertrec").remove();
 	    d3.select("#map").selectAll(".mapinfo").remove();

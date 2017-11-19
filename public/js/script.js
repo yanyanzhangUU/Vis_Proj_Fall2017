@@ -1,6 +1,6 @@
 let worldMap = new Map();
 let cluster= new Cluster();
-cluster.updateCluster();
+
 
     /* DATA LOADING */
     //Load in json data to make map
@@ -38,7 +38,7 @@ d3.csv("data/global-population-estimates.csv", function(error, global_data){
 	
 });
 
-let yearchart = new YearChart(worldMap, Population_total, Birth_rate, Death_rate, Life_expectancy);
+let yearchart = new YearChart(worldMap, Population_total, Birth_rate, Death_rate, Life_expectancy, cluster);
 let year = yearchart.update();
 
    
