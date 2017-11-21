@@ -24,8 +24,12 @@ class ParaCoordinates {
         this.height = 500 - this.margin.top - this.margin.bottom;
     }
 
+    clearCoor() {
+        this.svg.selectAll("g").remove();
+    }
     // draw parallel coordinates for a country
     drawCoord(cntrydata) {
+        this.clearCoor();
         // Extract the list of dimensions and create a scale for each.
         // let x = d3.scale.ordinal().rangePoints([0, this.width], 1);
         let that = this;
@@ -65,13 +69,13 @@ class ParaCoordinates {
             .data(dimensions)
             .enter().append("g")
             .attr("class", "dimension")
-            .attr("transform", function(d) {console.log("axis data ", d); return "translate(" + x(d) + ")"; });
+            .attr("transform", function(d) { return "translate(" + x(d) + ")"; });
 
         let selectthis = d3.select(this);
         // Add an axis and title.
         g.append("g")
             .attr("class", "axis")
-            .each(function(d) {console.log("this??? ", d3.select(this)); d3.select(this).call(axis.scale(y[d])); });
+            .each(function(d) { d3.select(this).call(axis.scale(y[d])); });
         g.append("text")
             .style("text-anchor", "middle")
             .attr("y", -9)
@@ -79,7 +83,7 @@ class ParaCoordinates {
             .classed("dimName", true);
 
         let oldposi = dimensions.map(d=>position(d));
-        console.log("old positions ", oldposi);
+        // console.log("old positions ", oldposi);
 
         g.call(d3.drag()
                 .subject(function(d) { return {x: x(d)}; })

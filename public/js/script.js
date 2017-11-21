@@ -1,4 +1,5 @@
 let worldMap = new Map();
+let parallelCoor = new ParaCoordinates();
 let cluster= new Cluster();
 
 
@@ -6,22 +7,23 @@ let cluster= new Cluster();
     //Load in json data to make map
     d3.json("data/world.json", function (error, world) {
         if (error) throw error;
-        worldMap.drawMap(world);
+        worldMap.drawMap(world, parallelCoor);
     });
 
     //yy 11/8
     let coordi = new ParaCoordinates();
 
-    d3.csv("data/usa_tst0.csv", function (error, cntrydata) {
-        coordi.drawCoord(cntrydata);
-    });
+    // d3.csv("data/usa_tst0.csv", function (error, cntrydata) {
+    //     console.log("the sample data ", cntrydata);
+    //     coordi.drawCoord(cntrydata);
+    // });
 
 //ly 11/09
 
-let Population_total=[];
-let Birth_rate=[];
-let Death_rate=[];
-let Life_expectancy=[];
+window.Population_total=[];
+window.Birth_rate=[];
+window.Death_rate=[];
+window.Life_expectancy=[];
 d3.csv("data/global-population-estimates.csv", function(error, global_data){
     //console.log(global_data)
     

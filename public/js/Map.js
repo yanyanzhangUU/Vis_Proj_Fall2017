@@ -172,7 +172,7 @@ class Map {
      * Renders the actual map
      * @param the json data with the shape of all countries
      */
-    drawMap(world) {
+    drawMap(world, parallel) {
 
 
         //(note that projection is a class member
@@ -201,7 +201,44 @@ class Map {
 		.data(countries.features)
 		.enter().append("path")
 		.attr("class", function(d){return "countries "+d.id;})
-		.attr("d", path);
+		.attr("d", path)
+            .on("click",function (d) {
+                // steps:
+                // 1. make Population_total=[] ... lists to be global (window.)
+                // 2. combine these 4 lists to be one dataset that is only for the selected country with id d.id only from 1960~2015
+                // 3. pass the new list to parallel.js
+                d3.selectAll(".highlighted").classed("highlighted", false);
+                d3.select(this).classed("highlighted", true);
+
+                console.log("click the country ", d, ", -this -", d3.select(this));
+                console.log("population list ", Population_total);
+                let rawCntryData = [];
+                // Population_total.forEach(function (row) {
+                //    if (row["Country Code"] === d.id) {
+                //        rawCntryData.push(row);
+                //    }
+                // });
+                rawCntryData = cntryRow(Population_total, d.id, rawCntryData);
+                rawCntryData = cntryRow(Birth_rate, d.id, rawCntryData);
+                rawCntryData = cntryRow(Death_rate, d.id, rawCntryData);
+                rawCntryData = cntryRow(Life_expectancy, d.id, rawCntryData);
+                console.log("the country data ", rawCntryData);
+
+                d3.select("#selectedCntry").text("Country: "+rawCntryData[0]["Country Name"]).classed("cntry", true)
+                    .style("font-weight", 'bold')
+                    .style("font-size", "18px");
+
+                let coorData = [];
+                for (let year=1960; year<=2015; year++) {
+                    // console.log("year ", year, rawCntryData[0][year+' [YR'+year+']']);
+                    coorData.push({"year": year, "Total Population": rawCntryData[0][year+' [YR'+year+']'],
+                        "Birth Rate": rawCntryData[1][year+' [YR'+year+']'],
+                        "Death Rate": rawCntryData[2][year+' [YR'+year+']'],
+                        "Life Expectancy": rawCntryData[3][year+' [YR'+year+']']});
+                }
+                console.log("the prepared data -- ", coorData);
+                parallel.drawCoord(coorData);
+            });
 
 	    map.append("path")
 		.datum(topojson.mesh(json, json.objects.countries, function(a, b) { return a !== b && a.id !== "IRL"; }))
@@ -221,8 +258,21 @@ class Map {
 		.attr("dx", 400)
 		.attr("dy", 250)
 		.attr("class", "alertinfo");
-	    
+
 	});
+
+	function cntryRow(list, id, rawCntryData) {
+	    // console.log("before pushing ", list, id, rawCntryData);
+	    list.forEach(function (row) {
+            if (row["Country Code"] === id) {
+                rawCntryData.push(row);
+                // console.log("inside if ", row);
+            }
+        });
+	    // console.log("after pushing ", rawCntryData);
+	    return rawCntryData;
+    }
+
     }
 
 

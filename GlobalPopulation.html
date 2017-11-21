@@ -40,7 +40,7 @@
     <span>
     <label>Info Type:</label>
     <select id="SelectedAttribute">
-        c<option value="anscombe_I">ToTal Population</option>
+        c<option value="anscombe_I">Total Population</option>
         <option selected value="anscombe_II">Birth Rate(per 1,000 people)</option>
         <option value="anscombe_III">Death Rate(per 1,000 people)</option>
         <option value="anscombe_IV">Life expectancy at birth, total (years)</option>
@@ -71,6 +71,10 @@
     <svg >
       <g id="panel"></g>
     </svg>
+
+      <li style="font-size:22px; color:#d20a11; margin-top:1.5em">Line chart</li>
+      <div id="lineChart"></div>
+
   </div>
 
 
@@ -85,9 +89,9 @@
 
         </header>
         <h2>Parallel Coordinates</h2>
+        <span><text  id="selectedCntry"> </text></span>
         <br>
         <br>
-        <span id="coordChart"></span>
         <!--<svg width="900" height="300">-->
         <!--<g id="coordinates"></g>-->
         <!--</svg>-->
@@ -96,13 +100,14 @@
 
 
 </div>
+<script type="application/javascript" src="public/js/parallel.js"></script>    <!--yy 11/8-->
 <script type="application/javascript" src="public/js/Map.js"></script>
 <script type="application/javascript" src="public/js/YearChart.js"></script>
 <!--<script type="application/javascript" src="public/js/Yearchart.js"></script>-->
 <!--<script type="application/javascript" src="public/js/InfoPanel.js"></script>-->
 <!--<script type="application/javascript" src="public/js/Zoom.js"></script>-->
-<script type="application/javascript" src="public/js/parallel.js"></script>    <!--yy 11/8-->
 <script type="application/javascript" src="public/js/Cluster.js"></script>
+<script type="application/javascript" src="public/js/lineChart.js"></script>
 <script type="application/javascript" src="public/js/script.js"></script>
 
 

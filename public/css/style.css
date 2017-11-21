@@ -97,8 +97,9 @@ h1 {
 }
 
 .highlighted{
-    stroke: #404040;;
-    stroke-width:4;
+    /*stroke: #400b1a;;*/
+    fill: #FF00FF;
+    stroke-width:5;
 }
 
 .brush .selection {
@@ -211,7 +212,7 @@ div.tooltip {
     left: 100%;
 }
 
-h3{
+h3, cntry{
     text-anchor:middle;
     font-size: 32px;
 }
