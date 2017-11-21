@@ -210,8 +210,8 @@ class Map {
                 d3.selectAll(".highlighted").classed("highlighted", false);
                 d3.select(this).classed("highlighted", true);
 
-                console.log("click the country ", d, ", -this -", d3.select(this));
-                console.log("population list ", Population_total);
+                // console.log("click the country ", d, ", -this -", d3.select(this));
+                // console.log("population list ", Population_total);
                 let rawCntryData = [];
                 // Population_total.forEach(function (row) {
                 //    if (row["Country Code"] === d.id) {
@@ -222,7 +222,7 @@ class Map {
                 rawCntryData = cntryRow(Birth_rate, d.id, rawCntryData);
                 rawCntryData = cntryRow(Death_rate, d.id, rawCntryData);
                 rawCntryData = cntryRow(Life_expectancy, d.id, rawCntryData);
-                console.log("the country data ", rawCntryData);
+                // console.log("the country data ", rawCntryData);
 
                 d3.select("#selectedCntry").text("Country: "+rawCntryData[0]["Country Name"]).classed("cntry", true)
                     .style("font-weight", 'bold')
@@ -236,7 +236,7 @@ class Map {
                         "Death Rate": rawCntryData[2][year+' [YR'+year+']'],
                         "Life Expectancy": rawCntryData[3][year+' [YR'+year+']']});
                 }
-                console.log("the prepared data -- ", coorData);
+                // console.log("the prepared data -- ", coorData);
                 parallel.drawCoord(coorData);
             });
 
