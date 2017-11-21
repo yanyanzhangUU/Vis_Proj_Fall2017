@@ -10,7 +10,7 @@
       div.tooltip { position: absolute; width: 380px; display: block;  padding: 20px; background: #000; border: 0px; border-radius: 3px; pointer-events: none; z-index: 999; color: #FAFAFA;}
     </style>
     <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
      <!--<script type="text/javascript" src="bower_components/d3/d3.js"></script>-->
     <script type="text/javascript" src="bower_components/d3-tip/index.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.9.0/d3-legend.js"></script>
@@ -33,7 +33,7 @@
   </header>
 
       
-  <div class="worldmap">
+  <div class="worldmap" class="content">
     
     <h2>World Map</h2>
     <div>
@@ -64,8 +64,8 @@
 
   </div>
   
-  <div class="panel">
-    <h2>Anlysis Panel</h2>
+  <div class="panel" class="sideBar">
+    <h2>Analysis Panel</h2>
     <li style="font-size:22px; color:#d20a11; margin-top:1.5em">Cluster</li>
     <div id="cluster"></div>
     <svg >
@@ -73,7 +73,17 @@
     </svg>
 
       <li style="font-size:22px; color:#d20a11; margin-top:1.5em">Line chart</li>
-      <div id="lineChart"></div>
+      <!--<div id="lineChart"></div>-->
+
+      <svg id="lineChartsvg" width="850" height="550">
+          <g id="xAxis"></g>
+          <g id="yAxis"></g>
+          <g id="lineChart"  width="850" height="550" transform='translate(30,0)'></g>
+      </svg>
+
+      <svg>
+          <g id="textLabels"  transform='translate(30,30)'></g>
+      </svg>
 
   </div>
 
@@ -100,6 +110,7 @@
 
 
 </div>
+<script type="application/javascript" src="public/js/lineChartJS.js"></script>
 <script type="application/javascript" src="public/js/parallel.js"></script>    <!--yy 11/8-->
 <script type="application/javascript" src="public/js/Map.js"></script>
 <script type="application/javascript" src="public/js/YearChart.js"></script>
@@ -107,7 +118,7 @@
 <!--<script type="application/javascript" src="public/js/InfoPanel.js"></script>-->
 <!--<script type="application/javascript" src="public/js/Zoom.js"></script>-->
 <script type="application/javascript" src="public/js/Cluster.js"></script>
-<script type="application/javascript" src="public/js/lineChart.js"></script>
+<!--<script type="application/javascript" src="public/js/lineChart.js"></script>-->
 <script type="application/javascript" src="public/js/script.js"></script>
 
 

@@ -172,7 +172,7 @@ class Map {
      * Renders the actual map
      * @param the json data with the shape of all countries
      */
-    drawMap(world, parallel) {
+    drawMap(world, parallel, lineChar) {
 
 
         //(note that projection is a class member
@@ -210,19 +210,11 @@ class Map {
                 d3.selectAll(".highlighted").classed("highlighted", false);
                 d3.select(this).classed("highlighted", true);
 
-                // console.log("click the country ", d, ", -this -", d3.select(this));
-                // console.log("population list ", Population_total);
                 let rawCntryData = [];
-                // Population_total.forEach(function (row) {
-                //    if (row["Country Code"] === d.id) {
-                //        rawCntryData.push(row);
-                //    }
-                // });
                 rawCntryData = cntryRow(Population_total, d.id, rawCntryData);
                 rawCntryData = cntryRow(Birth_rate, d.id, rawCntryData);
                 rawCntryData = cntryRow(Death_rate, d.id, rawCntryData);
                 rawCntryData = cntryRow(Life_expectancy, d.id, rawCntryData);
-                // console.log("the country data ", rawCntryData);
 
                 d3.select("#selectedCntry").text("Country: "+rawCntryData[0]["Country Name"]).classed("cntry", true)
                     .style("font-weight", 'bold')
@@ -230,14 +222,28 @@ class Map {
 
                 let coorData = [];
                 for (let year=1960; year<=2015; year++) {
-                    // console.log("year ", year, rawCntryData[0][year+' [YR'+year+']']);
                     coorData.push({"year": year, "Total Population": rawCntryData[0][year+' [YR'+year+']'],
                         "Birth Rate": rawCntryData[1][year+' [YR'+year+']'],
                         "Death Rate": rawCntryData[2][year+' [YR'+year+']'],
                         "Life Expectancy": rawCntryData[3][year+' [YR'+year+']']});
                 }
-                // console.log("the prepared data -- ", coorData);
                 parallel.drawCoord(coorData);
+
+                // add the line chart
+                let active=d3.select("#SelectedAttribute").node().value;
+                console.log("qc active", active, rawCntryData);
+                if (active === "anscombe_I") {
+                    lineData.push(rawCntryData[0]);
+                } else if (active === "anscombe_II") {
+                    lineData.push(rawCntryData[1]);
+                    console.log("push?? ", rawCntryData[1], lineData);
+                } else if (active === "anscombe_III") {
+                    lineData.push(rawCntryData[2]);
+                } else {
+                    lineData.push(rawCntryData[3]);
+                }
+
+                lineChar.drawLines(lineData);
             });
 
 	    map.append("path")
