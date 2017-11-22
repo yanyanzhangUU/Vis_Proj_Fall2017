@@ -231,12 +231,12 @@ class Map {
 
                 // add the line chart
                 let active=d3.select("#SelectedAttribute").node().value;
-                console.log("qc active", active, rawCntryData);
+                // console.log("qc active", active, rawCntryData);
                 if (active === "anscombe_I") {
                     lineData.push(rawCntryData[0]);
                 } else if (active === "anscombe_II") {
                     lineData.push(rawCntryData[1]);
-                    console.log("push?? ", rawCntryData[1], lineData);
+                    // console.log("push?? ", rawCntryData[1], lineData);
                 } else if (active === "anscombe_III") {
                     lineData.push(rawCntryData[2]);
                 } else {

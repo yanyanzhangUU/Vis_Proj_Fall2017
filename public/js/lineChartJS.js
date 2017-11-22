@@ -44,9 +44,13 @@ class LineChartCL {
         let ymin = 100000000;
         let ymax = 0;
         let yearlist = [];
+        let yearlist5 = [];
         data.forEach(function (r) {
             for (let year=1960; year<=2015; year++) {
                 yearlist.push(year);
+                if (year % 5 === 0) {
+                    yearlist5.push(year);
+                }
                 let currentVal = +r[year+" [YR"+year+']'];
                 if (currentVal > ymax) {
                     ymax = currentVal;
@@ -56,17 +60,24 @@ class LineChartCL {
                 }
             }
         });
-        console.log("ymin max ", ymin, ymax, ", x range: ", textWidth, this.svgWidth, ", y range: ", this.svgHeight, this.margin.top);
+        console.log("ymin max ", ymin, ymax);
+        let yvaluelist = [];
+        let yminI = Math.floor(ymin);
+        let ymaxI = Math.ceil(ymax);
+        let ystep = Math.ceil((ymaxI - yminI)/10);
+        for (let i=0; i<=Math.ceil((ymaxI-yminI)/ystep); i++) {
+            yvaluelist.push(yminI+i*ystep);
+        }
 
         let xx = d3.scalePoint().domain(yearlist).range([textWidth, this.svgWidth]),
-            y = d3.scaleLinear().domain([ymin, ymax]).range([this.svgHeight+this.margin.top, this.margin.top]),
+            y = d3.scaleLinear().domain([yminI, ymaxI]).range([this.svgHeight+this.margin.top, this.margin.top]),
             z = d3.scaleOrdinal(d3.schemeCategory20);
 
-        console.log("scale x ", xx(1960), xx(1961));
+        // console.log("scale x ", xx(1960), xx(1961));
 
         let linefcn = d3.line()
-            .x(function(d) {console.log("qcx ", d.year, xx(d.year));  return xx(d.year); })
-            .y(function(d) {console.log("qcy ", d.val, y(d.val)); return y(d.val); });
+            .x(function(d) { return xx(d.year); })
+            .y(function(d) { return y(d.val); });
 
         // id is the column name, i.e. service name
         let valData = [];
@@ -84,13 +95,14 @@ class LineChartCL {
             });
         });
 
-        console.log("prepared data ", valData);
+        // console.log("prepared data ", valData);
 
         z.domain(valData.map(function(s) { return s.id; }));
 
         // Create the axes (hint: use #xAxis and #yAxis)
         let xAxis=d3.axisBottom();
         xAxis.scale(xx);
+        xAxis.tickValues(yearlist5);
         let xshift = 30;
         let selection=d3.select('#xAxis')
             .classed("axis",true)
@@ -98,14 +110,35 @@ class LineChartCL {
             .attr("id","xAxis text")
             .call(xAxis)
             .selectAll('text')
-            .style("text-anchor", "left");
+            .style("text-anchor", "middle")
+            .attr("x", 0)
+            .attr("y", 3);
+            // .attr("transform", "rotate(-90)");
 
         let yAxis=d3.axisLeft();
         yAxis.scale(y);
-        let yAxisxshift = 50;
-        let selecty=d3.select('#yAxis')
-            .classed("axis",true)
-            .attr("transform","translate("+(this.margin.left+yAxisxshift)+","+this.margin.bottom+")")
+        console.log("yticks ", yvaluelist);
+        yAxis.tickValues(yvaluelist);
+        let yAxisxshift = 49;
+        // console.log("before removing ", d3.select("#yAxis"));
+        // d3.select("#yAxis").selectAll('g').remove();
+        // d3.select("#yAxis").selectAll('path').remove();
+        // console.log("after removing ", d3.select("#yAxis"));
+        // let selecty=d3.select('#yAxis')
+        //     .classed("axis",true)
+        //     .attr("transform","translate("+(this.margin.left+yAxisxshift)+",0"+")")//this.margin.bottom+
+        //     .attr("id","yAxis text")
+        //     .call(yAxis);
+
+        let selecty=d3.select("#yAxis");
+        selecty.selectAll(".axis").style("opacity", 1)
+            .transition()
+            .duration(1000)
+            .style("opacity", 0).remove();
+        selecty.append("g").classed("axis",true)
+            .transition()
+            .duration(3000)
+            .attr("transform","translate("+(this.margin.left+yAxisxshift)+", 0)")
             .attr("id","yAxis text")
             .call(yAxis);
 
@@ -117,7 +150,7 @@ class LineChartCL {
         lines = lines.merge(linesEnter);
 
         lines.attr("class", d => d.id + " lines")
-            .attr("d", function(d) {console.log("d? ", d.values);  return linefcn(d.values); })
+            .attr("d", function(d) {  return linefcn(d.values); })
             .style("stroke", function(d) { return z(d.id); });
 
         let tip = d3.tip().attr('class', 'd3-tip')
