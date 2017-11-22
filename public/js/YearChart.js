@@ -8,8 +8,8 @@ class YearChart {
 	this.Birth_rate =Birth_rate;
 	this.Death_rate=Death_rate;
 	this.Life_expectancy=Life_expectancy;
-	this.type = null;
-	this.alldata = null;
+	this.type = "BR";
+	this.alldata = Birth_rate;
 	this.selected_year =null;
         this.margin = {top: 10, right: 20, bottom: 30, left: 50};
         let divyearChart = d3.select("#year-chart");
@@ -214,8 +214,13 @@ class YearChart {
 		break;
 	    }
 	};
-
-	
+	/*	let br=yearChart.alldata;
+	console.log(br)
+	yearChart.alldata.forEach(function(d) { console.log(d); });
+	if(yearChart.selected_year==null){
+	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , 1960, yearChart.cluster);
+	}
+	*/
 	ychv.on("mouseout", function(d){
 	    d3.select(this).classed("highlighted", false);
 	    let hy =yearChart.svg.selectAll(".Hoveryear");

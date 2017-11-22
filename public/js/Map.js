@@ -267,6 +267,8 @@ class Map {
 
 	});
 
+	
+
 	function cntryRow(list, id, rawCntryData) {
 	    // console.log("before pushing ", list, id, rawCntryData);
 	    list.forEach(function (row) {
