@@ -368,7 +368,17 @@ path {
 
 .lines {
     fill: none;
-    stroke-width: 4px;
+    stroke-width: 5px;
     stroke: white;
     stroke-opacity: 0.5;
+}
+
+.highlighted2{
+    stroke: #fae8d2;
+    stroke-width: 10px;
+    stroke-opacity: 1;
+    color: #fa0505;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
 }

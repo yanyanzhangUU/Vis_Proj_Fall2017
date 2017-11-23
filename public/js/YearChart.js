@@ -188,32 +188,42 @@ class YearChart {
 	    hiddenElement3.click();
 	    console.log(csv3)
 	    */
+	    let lineChar = new LineChartCL();
 	    attribute = document.getElementById('SelectedAttribute').value;
 	    switch(attribute){
 	    case 'anscombe_I':
 		yearChart.type ="PT";
 		yearChart.alldata=yearChart.Population_total;
 		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
+		lineData = newlinedata(lineData, Population_total);
+		lineChar.drawLines(lineData);
 		break;
 	    case 'anscombe_II':
 		yearChart.type="BR";
 		yearChart.alldata=yearChart.Birth_rate;
 		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
+		lineData = newlinedata(lineData, Birth_rate);
+		lineChar.drawLines(lineData);
 		break;
 	    case 'anscombe_III':
 		yearChart.type="DR";
 		yearChart.alldata=yearChart.Death_rate;
 		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
+		lineData = newlinedata(lineData, Death_rate);
+		lineChar.drawLines(lineData);
 		break;
 	    case 'anscombe_IV':
 		yearChart.type="LE";
 		yearChart.alldata=yearChart.Life_expectancy;
 		yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
+		lineData = newlinedata(lineData, Life_expectancy);
+		lineChar.drawLines(lineData);
 		break;
 	    default:
 		break;
 	    }
 	};
+
 	/*	let br=yearChart.alldata;
 	console.log(br)
 	yearChart.alldata.forEach(function(d) { console.log(d); });
@@ -234,6 +244,22 @@ class YearChart {
 	    yearChart.selected_year=this["__data__"];
 	    yearChart.worldMap.updateMap(yearChart.alldata, yearChart.type , yearChart.selected_year, yearChart.cluster);
 	});
+
+        function newRow(old_row, list) {
+            let updatedrow = {};
+        	list.forEach(function (row) {
+                if (row["Country Code"] === old_row["Country Code"]) {
+                	updatedrow = row;
+                }
+            });
+            return updatedrow;
+        }
+
+        function newlinedata(oldlinedata, list) {
+			let updateddata = [];
+            oldlinedata.forEach(d => updateddata.push(newRow(d, list)));
+        	return updateddata;
+        }
 
     }
 

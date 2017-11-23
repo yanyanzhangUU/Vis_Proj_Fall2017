@@ -244,6 +244,7 @@ class Map {
                 }
 
                 lineChar.drawLines(lineData);
+                // console.log("the line data ", lineData);
             });
 
 	    map.append("path")
@@ -270,14 +271,11 @@ class Map {
 	
 
 	function cntryRow(list, id, rawCntryData) {
-	    // console.log("before pushing ", list, id, rawCntryData);
 	    list.forEach(function (row) {
             if (row["Country Code"] === id) {
                 rawCntryData.push(row);
-                // console.log("inside if ", row);
             }
         });
-	    // console.log("after pushing ", rawCntryData);
 	    return rawCntryData;
     }
 

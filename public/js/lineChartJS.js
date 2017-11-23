@@ -5,7 +5,6 @@ class LineChartCL {
         this.margin = {top: 10, right: 10, bottom: 10, left: 10};
 
         let lines = d3.select("#lineChartsvg").classed("fullView", true);
-        // let lines = d3.select("#lineChart");
 
         //fetch the svg bounds
         this.svgBounds = lines.node().getBoundingClientRect();
@@ -60,7 +59,6 @@ class LineChartCL {
                 }
             }
         });
-        console.log("ymin max ", ymin, ymax);
         let yvaluelist = [];
         let yminI = Math.floor(ymin);
         let ymaxI = Math.ceil(ymax);
@@ -72,8 +70,6 @@ class LineChartCL {
         let xx = d3.scalePoint().domain(yearlist).range([textWidth, this.svgWidth]),
             y = d3.scaleLinear().domain([yminI, ymaxI]).range([this.svgHeight+this.margin.top, this.margin.top]),
             z = d3.scaleOrdinal(d3.schemeCategory20);
-
-        // console.log("scale x ", xx(1960), xx(1961));
 
         let linefcn = d3.line()
             .x(function(d) { return xx(d.year); })
@@ -95,8 +91,6 @@ class LineChartCL {
             });
         });
 
-        // console.log("prepared data ", valData);
-
         z.domain(valData.map(function(s) { return s.id; }));
 
         // Create the axes (hint: use #xAxis and #yAxis)
@@ -113,22 +107,11 @@ class LineChartCL {
             .style("text-anchor", "middle")
             .attr("x", 0)
             .attr("y", 3);
-            // .attr("transform", "rotate(-90)");
 
         let yAxis=d3.axisLeft();
         yAxis.scale(y);
-        console.log("yticks ", yvaluelist);
         yAxis.tickValues(yvaluelist);
         let yAxisxshift = 49;
-        // console.log("before removing ", d3.select("#yAxis"));
-        // d3.select("#yAxis").selectAll('g').remove();
-        // d3.select("#yAxis").selectAll('path').remove();
-        // console.log("after removing ", d3.select("#yAxis"));
-        // let selecty=d3.select('#yAxis')
-        //     .classed("axis",true)
-        //     .attr("transform","translate("+(this.margin.left+yAxisxshift)+",0"+")")//this.margin.bottom+
-        //     .attr("id","yAxis text")
-        //     .call(yAxis);
 
         let selecty=d3.select("#yAxis");
         selecty.selectAll(".axis").style("opacity", 1)
@@ -145,7 +128,6 @@ class LineChartCL {
         let lines = this.svg.selectAll("path")
             .data(valData);
         let linesEnter = lines.enter().append("path");
-            // .attr("class", "lines");
         lines.exit().remove();
         lines = lines.merge(linesEnter);
 
@@ -153,31 +135,42 @@ class LineChartCL {
             .attr("d", function(d) {  return linefcn(d.values); })
             .style("stroke", function(d) { return z(d.id); });
 
-        let tip = d3.tip().attr('class', 'd3-tip')
-            .direction('s')
-            .offset(function() {
-                return [0,0];
-            })
-            .html(d => d.name);
-            // {
-            //     let tooltip_data = {
-            //         "name": d.name
-                    // "result": d.values.map(function(r) {
-                    //     return {year: r.year, ratio: r.ratio};
-                    // })
-                // };
+        // a simple tooltip
+        let tooltip = d3.select("body")
+            .append("div")
+            .style("position", "absolute")
+            .style("z-index", "10")
+            .style("visibility", "hidden");
 
-                // return that.tooltip_render(tooltip_data);
-            // });
+        tooltip.append("text")
+            .attr("x", 30)
+            .attr("dy", "1.2em")
+            .style("text-anchor", "middle")
+            .attr("font-size", "12px")
+            .attr("font-weight", "bold");
+        // end of a simple tooltip
 
-        // to do: to be added. small rectangles on each line
-        // service.selectAll('rect')
-        //     .attr("x", )
-        //     .style();
-
-        lines.call(tip);
-        lines.on("mouseover", tip.show)
-            .on("mouseout", tip.hide);
+        // let tip = d3.tip().attr('class', 'd3-tip')
+        //     .direction('s')
+        //     .offset(function() {
+        //         return [0,0];
+        //     })
+        //     .html(d => d.name);
+        //
+        // lines.call(tip);
+        lines.on("mouseover",function (d,i) {
+            // d3.select(this).style("fill","green");
+            return tooltip.style("visibility","visible").text(d.name).style("top",(event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+            .on("mouseout", function(){
+                // d3.select(this).style("fill","steelblue");
+                return tooltip.style("visibility", "hidden");})
+            // .on("mouseover", tip.show)
+            // .on("mouseout", tip.hide)
+            .on("dblclick", function (d) {
+                lineData = lineData.filter(r => r["Country Code"] !== d.id);
+                that.drawLines(lineData);
+                return tooltip.style("visibility", "hidden");
+            });
 
         let bigsvg = d3.select('#textLabels');
         let labels = bigsvg.selectAll(".textlabels")
@@ -192,15 +185,15 @@ class LineChartCL {
             .style("color", function(d) { return z(d.id); });
 
         // let infoPanel = new infoChart();
-        // labels.on("click", function (d) {
-        //     d3.selectAll(".highlighted").classed("highlighted", false);
-        //     d3.selectAll("." + d.id.replace(/\s+/g, '')).classed("highlighted", true);
-        //     infoPanel.updateInfo(tabledata, d.id);
-        // })
-        //     .on("dblclick", function (d) {
-        //         d3.selectAll(".highlighted").classed("highlighted", false);
-        //         d3.select("#infoPanel").selectAll("li").remove();
-        //     });
+        labels.on("click", function (d) {
+            d3.selectAll(".highlighted2").classed("highlighted2", false);
+            d3.selectAll("." + d.id).classed("highlighted2", true);
+            // infoPanel.updateInfo(tabledata, d.id);
+        })
+            .on("dblclick", function (d) {
+                d3.selectAll(".highlighted2").classed("highlighted2", false);
+                // d3.select("#infoPanel").selectAll("li").remove();
+            });
 
     }
 
