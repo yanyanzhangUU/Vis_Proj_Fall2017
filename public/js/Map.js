@@ -261,7 +261,7 @@ class Map {
 		.attr("class", "alertrec");
 
 	    map.append("text")
-		.text("Please select a pair of info type and year!")
+		.text("Please select a year from year chart below!")
 		.attr("dx", 400)
 		.attr("dy", 250)
 		.attr("class", "alertinfo");
