@@ -55,7 +55,13 @@ h1 {
 
 .sideBar {
     display: inline-block;
-    width: 50%;
+    width: 20%;
+    float:right;
+}
+
+.lineBar {
+    display: inline-block;
+    width: 30%;
     float:right;
 }
 

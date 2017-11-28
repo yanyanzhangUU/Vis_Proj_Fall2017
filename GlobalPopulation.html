@@ -67,24 +67,34 @@
   <div class="panel" class="sideBar">
     <h2>Analysis Panel</h2>
     <li style="font-size:22px; color:#d20a11; margin-top:1.5em">Cluster</li>
-	<div id="cluster"></div>
-	<li style="font-size:22px; color:#d20a11; margin-top:1.5em">Line chart</li>
-      <div>
-          <!--class = "sideBar"-->
-          <span id="textLabels" width="150" height="150"></span>
-          <!--<span id="infoPanel"><h2>Info of the selected service: </h2></span>-->
-      </div>
-      <!--<div id="lineChart"></div>-->
-      <svg id="lineChartsvg" width="850" height="550">
-          <g id="xAxis"></g>
-          <g id="yAxis"></g>
-          <g id="lineChart"  width="850" height="550" transform='translate(30,0)'></g>
-      </svg>
+    <div id="cluster"></div>
+    <li  style="margin-left:1.5em; margin-top:1.5em">Filter Function: PCA </li>
+    <li style="margin-left:2.5em; margin-top:0.5em">N Components: 2</li>
+    <li style="margin-left:1.5em; margin-top:1.5em">Cluster Algorithm: DBSCAN </li>
+    <li style="margin-left:2.5em; margin-top:0.5em">Eps: 0.1</li>
+    <li style="margin-left:2.5em; margin-top:0.5em">Minimum samples: 5</li>
+    <li style="margin-left:1.5em; margin-top:1.5em">Color Function: PC1 </li>
+    <li style="margin-left:1.5em; margin-top:1.5em">Mapper Algorithm: Kepler Mapper </li>
+    <li style="margin-left:2.5em; margin-top:0.5em">Cubes per dimension: 10 </li>
+    <li style="margin-left:2.5em; margin-top:0.5em">Overlap Percentage: 30% </li>
+  </div>
 
-      <!--<svg>-->
-          <!--<g id="textLabels"  transform='translate(30,30)'></g>-->
-      <!--</svg>-->
-
+  <div class="panel" class="lineBar">
+    <li style="font-size:22px; color:#d20a11; margin-top:4em">Line chart</li>
+    <div>
+      <!--class = "sideBar"-->
+      <span id="textLabels" width="150" height="150"></span>
+      <!--<span id="infoPanel"><h2>Info of the selected service: </h2></span>-->
+    </div>
+    <!--<div id="lineChart"></div>-->
+    <svg id="lineChartsvg" width="850" height="550">
+      <g id="xAxis"></g>
+      <g id="yAxis"></g>
+      <g id="lineChart"  width="850" height="550" transform='translate(30,0)'></g>
+    </svg>
+    <!--<svg>-->
+      <!--<g id="textLabels"  transform='translate(30,30)'></g>-->
+	  <!--</svg>-->
   </div>
 
 
