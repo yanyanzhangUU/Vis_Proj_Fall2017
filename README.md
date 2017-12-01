@@ -16,18 +16,18 @@ Our project structure looks like this:
 	GlobalPopulation.html
         public/
             css/
-               style.css
+                style.css
             js/  # all js files
-               script.js
-               YearChart.js
-	       Map.js
-	       Cluster.js
-	       lineChartJS.js
-	       parallel.js
+                script.js
+                YearChart.js
+		Map.js
+		Cluster.js
+		lineChartJS.js
+		parallel.js
 	    py/  # Python codes needed for clustering
 	       GlobalPopulation.py
 	       km.py
-    	data/
+	data/
       	  global-population-estimates.csv
 	Process Book.pdf
 	Readme.md
