@@ -27,6 +27,14 @@ Our project structure looks like this:
             py/  # Python codes needed for clustering
                GlobalPopulation.py
                km.py
+               info_DR.csv
+               info_LE.csv
+               info_PT_1960.csv
+               info_PT.csv
+               label_BR.csv
+               label_DR.csv
+               label_LE.csv
+               label_PT.csv
         data/
             global-population-estimates.csv
 	Process Book.pdf
