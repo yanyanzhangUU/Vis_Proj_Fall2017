@@ -24,7 +24,7 @@ Our project structure looks like this:
                Cluster.js
                lineChartJS.js
                parallel.js
-            py/  # Python codes needed for clustering
+            py/  # Python codes and csv files needed for generating clustering graph
                GlobalPopulation.py
                km.py
                info_DR.csv
