@@ -16,21 +16,8 @@ Our project structure looks like this:
 	GlobalPopulation.html
         public/
             css/
-                style.css
+               style.css
             js/  # all js files
-<<<<<<< HEAD
-                script.js
-                YearChart.js
-		Map.js
-		Cluster.js
-		lineChartJS.js
-		parallel.js
-	    py/  # Python codes needed for clustering
-	       GlobalPopulation.py
-	       km.py
-	data/
-      	  global-population-estimates.csv
-=======
                script.js
                YearChart.js
                Map.js
@@ -50,7 +37,6 @@ Our project structure looks like this:
                label_PT.csv
         data/
             global-population-estimates.csv
->>>>>>> origin/gh-pages
 	Process Book.pdf
 	Readme.md
 	bower_components/ #contains local copies of d3 and d3-tip 	
