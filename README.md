@@ -1,9 +1,9 @@
 # Explore Global Population from 1960 to 2016
 
 UofU Visualization Fall 2017 Final Project Info:
-[Webpage]
-[Process Book]
-[Demo Video]
+[Process Book](https://github.com/yanyanzhangUU/dataviscourse-pr-GlobalPopulation/blob/gh-pages/Process%20Book.pdf)
+[Project Website](https://yanyanzhanguu.github.io/dataviscourse-pr-GlobalPopulation/GlobalPopulation.html)
+[Demo Video](https://www.youtube.com/watch?v=4C3eAbYFTHo&index=2&list=PLYiZl0A2kNDU-JMqvdBh-hjP6W-DTvNa8)
 
 
 Your project structure looks like this:
