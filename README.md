@@ -8,7 +8,7 @@
 
 [Project Website](https://yanyanzhanguu.github.io/dataviscourse-pr-GlobalPopulation/GlobalPopulation.html)
 
-[Demo Video](https://www.youtube.com/watch?v=4C3eAbYFTHo&index=2&list=PLYiZl0A2kNDU-JMqvdBh-hjP6W-DTvNa8)
+[Demo Video](https://www.youtube.com/watch?v=3k-AnUEeGI0)
 
 ## Structure:
 Our project structure looks like this:
